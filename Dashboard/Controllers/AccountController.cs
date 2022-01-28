@@ -31,20 +31,31 @@ namespace Dashboard.Controllers
             if (ModelState.IsValid)
             {
                 User user = await context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-                if (user != null && user.IsActive)
+
+                if (user == null)
                 {
-                    await Authenticate(user); // аутентификация
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                }
+                else
+                {
+                    if (user.IsActive)
                     {
-                        return Redirect(model.ReturnUrl);
+                        await Authenticate(user);
+                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("index", "home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("index", "home");
+                        ModelState.AddModelError("", "Доступ к сайту ограничен");
                     }
-                }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-            }
+                }                
+			}
             return View(model);
         }
 
