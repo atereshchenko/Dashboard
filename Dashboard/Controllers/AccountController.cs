@@ -47,7 +47,7 @@ namespace Dashboard.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("index", "home");
+                            return RedirectToAction("index", "admin");
                         }
                     }
                     else

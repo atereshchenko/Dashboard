@@ -20,3 +20,10 @@
     }
 </ul>
 <a class="btn btn-sm btn-outline-secondary"  asp-controller="tile" asp-action="create" role="button">Создать</a>
+
+@section CustomScripts
+{
+    <script>
+        $('#tilesmenu>a').addClass("active");
+    </script>
+}
