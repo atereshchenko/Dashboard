@@ -3,12 +3,12 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container g-2 py-2" id="featured-3">
+<div class="container g-3 py-3" id="featured-3">
     @*<h3 class="pb-2 border-bottom">Закладки</h3>*@    
-    <div class="row g-2 py-2 row-cols-1 row-cols-lg-5">
+    <div class="row g-3 py-3 row-cols-1 row-cols-lg-5">
         @foreach (var tile in Model)
         {
-            <div class="feature col">
+            @*<div class="feature col">
                 @if(tile.SvgClass != null)
                 {
                     <div class="feature-icon-custom bg-primary bg-gradient">
@@ -21,6 +21,20 @@
                     @tile.LinkName
                     <svg class="bi" width="1em" height="1em"><use xlink:href="/img/example.svg#chevron-right" /></svg>
                 </a>
+            </div>*@
+
+            <div class="col d-flex align-items-start">
+	            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+		            <svg class="bi" width="1em" height="1em"><use xlink:href="/img/example.svg#@tile.SvgClass"></use></svg>
+	            </div>
+	            <div>
+		            <h6>@tile.Name</h6>
+		            <p>@tile.Description</p>
+		            <a href="@tile.Link" target="_blank" rel="noreferrer" class="icon-link text-decoration-none">
+                        @tile.LinkName
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="/img/example.svg#chevron-right" /></svg>
+                    </a>
+	            </div>
             </div>
         }
     </div>
