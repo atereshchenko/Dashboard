@@ -1,0 +1,22 @@
+﻿@model Dashboard.Models.ViewModel
+@{
+    Layout = "_Admin";
+}
+<ul class="list-group">
+    @foreach (var tile in Model.Tiles)
+    {
+        if (tile.TurnOn)
+        {
+            <li class="list-group-item list-group-item-light">
+                <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@tile.Id">@tile.Name</a>
+            </li>
+        }
+        else
+        {
+            <li class="list-group-item list-group-item-danger">
+                <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@tile.Id">@tile.Name</a>
+            </li>
+        }
+    }
+</ul>
+<a class="btn btn-sm btn-outline-secondary"  asp-controller="tile" asp-action="create" role="button">Создать</a>
