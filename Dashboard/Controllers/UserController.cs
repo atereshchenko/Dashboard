@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
@@ -57,9 +59,12 @@ namespace Dashboard.Controllers
         public async Task<ActionResult> Create(ViewModel model)
         {
             try
-            {
+            {                
                 if (ModelState.IsValid)
                 {
+                    string md5password = CalculateMD5Hash(model.User.Password);
+                    model.User.Password = md5password;
+
                     await db.Users.AddAsync(model.User);
                     await db.SaveChangesAsync();
                     return RedirectToAction("index");
@@ -72,7 +77,9 @@ namespace Dashboard.Controllers
                 return View(ex.ToString());
             }
         }
-       
+        
+        [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             ViewBag.Breadcrumb = "User";
@@ -124,6 +131,21 @@ namespace Dashboard.Controllers
             {
                 return View();
             }
+        }
+
+        public string CalculateMD5Hash(string password)
+        {
+            // step 1, calculate MD5 hash from input
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
         }
     }
 }

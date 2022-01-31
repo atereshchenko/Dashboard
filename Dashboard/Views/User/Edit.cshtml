@@ -42,10 +42,20 @@
     </div>
 </form>
 
+@section VenderScripts
+{
+    <script src="~/lib/select2-bootstrap-5-theme/js/select2.min.js" ></script>
+}
+
 @section CustomScripts
 {    
     <script>
         $('#usersmenu>a').addClass("active");
+        $("#User_RoleId").select2({
+            theme: "bootstrap-5",            
+            dropdownCssClass: "select2--small",
+            minimumResultsForSearch: -1
+        });
         
         (function () {'use strict'
         // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap

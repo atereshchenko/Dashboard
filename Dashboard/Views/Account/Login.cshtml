@@ -35,7 +35,7 @@
 </head>
 <body class="text-center">
     <main class="form-signin">
-        <form asp-action="login" asp-controller="account" asp-route-returnUrl="@Model.ReturnUrl" asp-anti-forgery="true" method="post">
+        <form asp-controller="account" asp-action="login" asp-route-returnUrl="@Model.ReturnUrl" asp-anti-forgery="true" method="post">
             <img class="mb-4" src="/img/bootstrap-logo.svg" alt="" width="72" height="57">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             <div class="validation" asp-validation-summary="ModelOnly"></div>

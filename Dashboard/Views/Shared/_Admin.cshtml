@@ -6,14 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Alexey Tereshchenko and Bootstrap contributors">
-    @if (ViewBag.Title != null){<title>@ViewBag.Title</title>}else{<title>Dashboard</title>}
+    @if (ViewBag.Title != null)
+    {
+        <title>@ViewBag.Title</title>
+    }
+    else
+    {
+        <title>Dashboard</title>
+    }
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
-   <link href="~/lib/fontawesome/css/all.css" rel="stylesheet">
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet">
+    <!--Select-2-->
+    <link rel="stylesheet" href="~/lib/select2-bootstrap-5-theme/css/select2.min.css" />
+    <link rel="stylesheet" href="~/lib/select2-bootstrap-5-theme/css/select2-bootstrap-5-theme.min.css" />
     <link href="~/css/site.css" rel="stylesheet" />
     <style>
         .bd-placeholder-img {
@@ -82,10 +92,13 @@
                         @if (ViewBag.Breadcrumb != null)
                         {
                             @ViewBag.Breadcrumb
-                        }else
+                        }
+                        else
                         {
-                            <span>Dashboard</span>;
-                        }</h1>
+                            <span>Dashboard</span>
+                            ;
+                        }
+                    </h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     </div>
                 </div>
@@ -95,9 +108,9 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-            integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("VenderScripts", required: false)
     @await RenderSectionAsync("CustomScripts", required: false)
