@@ -18,7 +18,6 @@
     "Dashboard": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "user/create",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -57,10 +57,16 @@
     </div>
 </form>
 
+@section VenderScripts
+{
+    <script src="~/lib/select2-bootstrap-5-theme/js/select2.min.js" ></script>
+}
+
 @section CustomScripts
 {
 <script>
-    $('#tilesmenu>a').addClass("active");
+    $('#tilesmenu>a').addClass("active");   
+
     (function () {'use strict'
     // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
     var forms = document.querySelectorAll('.needs-validation')

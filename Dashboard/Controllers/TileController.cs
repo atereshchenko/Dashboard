@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace Dashboard.Controllers
 			ViewBag.UserId = user.Id;
 			ViewBag.Title = "Редактирование";
 			ViewBag.Breadcrumb = "Tile";
-			var tile = await db.Tiles.FirstOrDefaultAsync(t => t.Id == id);
+			var tile = await db.Tiles.FirstOrDefaultAsync(t => t.Id == id);			
 
 			ViewModel viewModel = new ViewModel
 			{
@@ -72,7 +73,7 @@ namespace Dashboard.Controllers
 		[HttpGet]
 		[Authorize(Roles = "admin")]
 		public async Task<ActionResult> Create()
-		{
+		{			
 			return View();
 		}
 
