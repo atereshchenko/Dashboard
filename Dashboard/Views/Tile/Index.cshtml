@@ -8,13 +8,13 @@
         if (tile.TurnOn)
         {
             <li class="list-group-item list-group-item-light">
-                <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@tile.Id">@tile.Name</a>
+                <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@tile.Id">@tile.Number. @tile.Name</a>
             </li>
         }
         else
         {
             <li class="list-group-item list-group-item-danger">
-                <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@tile.Id">@tile.Name</a>
+                <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@tile.Id">@tile.Number. @tile.Name</a>
             </li>
         }
     }
