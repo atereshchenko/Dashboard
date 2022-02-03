@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dashboard.Controllers
 {
-	public class ExampleController : Controller
+	public class ExamplesController : Controller
 	{
 		public ActionResult Index()
 		{
