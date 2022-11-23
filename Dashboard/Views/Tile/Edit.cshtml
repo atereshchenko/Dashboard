@@ -1,0 +1,110 @@
+﻿@using Dashboard.Models
+@model Dashboard.Models.ViewModel
+@{
+    Layout = "_Admin";
+}
+<form role="form" asp-action="edit" asp-controller="tile" asp-route-id="@Model.Tile.Id" class="row g-3 needs-validation" novalidate>
+    @Html.HiddenFor(m => m.Tile.Id)
+    <div class="col-md-9">
+        <label asp-for="@Model.Tile.Name" class="form-label">Наименование</label>
+        <input asp-for="@Model.Tile.Name" type="text" value="@Model.Tile.Name" class="form-control form-control-sm" required>
+        <div class="invalid-feedback">
+            Укажите наименование.
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="@Model.Tile.Number" class="form-label">Порядковый номер отображения</label>
+        <input asp-for="@Model.Tile.Number" type="number" value="@Model.Tile.Number" class="form-control form-control-sm" required>
+        <div class="invalid-feedback">
+            Укажите порядковый номер отображения плитки
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label asp-for="@Model.Tile.Description" class="form-label">Описание</label>
+        <input asp-for="@Model.Tile.Description" type="text" value="@Model.Tile.Description" class="form-control form-control-sm" required>
+        <div class="invalid-feedback">
+            Укажите описание.
+        </div>
+    </div>
+    <div class="col-md-9">
+        <label asp-for="@Model.Tile.Link" class="form-label">Ссылка</label>
+        <input asp-for="@Model.Tile.Link" type="text" value="@Model.Tile.Link" class="form-control form-control-sm">
+        <div class="invalid-feedback">
+            Укажите ссылку.
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="@Model.Tile.LinkName" class="form-label">Текст ссылки</label>
+        <input asp-for="@Model.Tile.LinkName" type="text" value="@Model.Tile.LinkName" class="form-control form-control-sm" required>
+        <div class="invalid-feedback">
+            Укажите наименоввание ссылки.
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="@Model.Tile.BorderColorId" class="form-label">Border Color</label>
+        <select class="form-control form-control-sm" asp-for="@Model.Tile.BorderColorId" asp-items="@(new SelectList(ViewBag.BorderColors, "Value", "Text"))"></select>
+        <input type="hidden" asp-for="@Model.Tile.BorderColorId" />
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="@Model.Tile.TextColorId" class="form-label">Text Color</label>
+        <select class="form-control form-control-sm" asp-for="@Model.Tile.TextColorId" asp-items="@(new SelectList(ViewBag.TextColor, "Value", "Text"))"></select>
+        <input type="hidden" asp-for="@Model.Tile.TextColorId" />
+    </div>
+
+    <div class="col-md-12">
+        <input asp-for="@Model.Tile.TurnOn" type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+        <label asp-for="@Model.Tile.TurnOn" class="btn btn-sm btn-outline-secondary" for="btncheck1">Вкл/выкл публикацию</label>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-sm btn-success" type="submit">Сохранить</button>
+    </div>
+</form>
+
+@section VenderScripts
+{
+    <script src="~/lib/select2-bootstrap-5-theme/js/select2.min.js"></script>
+}
+
+@section CustomScripts
+{
+    <script>
+        $('#tilesmenu>a').addClass("active");
+
+        $("#Tile_BorderColorId").select2({
+            theme: "bootstrap-5",
+            containerCssClass: "select2--small",
+            selectionCssClass: "select2--small",
+            dropdownCssClass: "select2--small",
+            minimumResultsForSearch: -1,            
+        });
+
+        $("#Tile_TextColorId").select2({
+            theme: "bootstrap-5",
+            containerCssClass: "select2--small",
+            selectionCssClass: "select2--small",
+            dropdownCssClass: "select2--small",
+            minimumResultsForSearch: -1,
+        });
+
+        (function () {
+            'use strict'
+            // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Зацикливайтесь на них и предотвращайте отправку
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

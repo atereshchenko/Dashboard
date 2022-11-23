@@ -1,0 +1,43 @@
+﻿@using Dashboard.Models
+@model Dashboard.Models.DashboardModel
+@{
+    Layout = "_Admin";
+}
+<link href="~/css/site.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-header">
+                Featured
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="/swagger/index.html" class="link-primary">Swagger documentation</a></li>
+                <li class="list-group-item"><a asp-controller="examples" asp-action="index" class="link-primary">Bootstrap Examples</a></li>
+                <li class="list-group-item"><a href="https://www.chartjs.org/" class="link-primary">Charts.js</a></li>                
+            </ul>
+        </div>        
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-header">
+                Icons
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="https://getbootstrap.com/docs/5.1/extend/icons/" class="link-primary">Bootstrap icons docs</a></li>
+                <li class="list-group-item"><a href="https://icons.getbootstrap.com/" class="link-primary">Bootstrap Icons</a></li>                
+                <li class="list-group-item"><a href="https://feathericons.com/" class="link-primary">Feather icons</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+@section VenderScripts
+{
+    
+}
+
+@section CustomScripts
+{
+    
+}

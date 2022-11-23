@@ -1,0 +1,64 @@
+﻿@model Dashboard.Models.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Authorization";
+}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Alexey Tereshchenko">
+    <title>Signin</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="theme-color" content="#7952b3">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @@media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="/css/signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+    <main class="form-signin">
+        <form asp-controller="account" asp-action="login" asp-route-returnUrl="@Model.ReturnUrl" asp-anti-forgery="true" method="post">            
+            <img class="mb-4" src="/img/logo.png" alt="" width="57" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="form-floating">
+                <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+        </form>
+    </main>
+</body>
+</html>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    $('div.validation ul:first').addClass('list-group');
+    $('div.validation ul:first>li').addClass('list-group-item list-group-item-danger');
+</script>

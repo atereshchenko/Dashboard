@@ -1,0 +1,133 @@
+﻿<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Alexey Tereshchenko and Bootstrap contributors">
+    @if (ViewBag.Title != null)
+    {
+        <title>@ViewBag.Title</title>
+    }
+    else
+    {
+        <title>Dashboard</title>
+    }
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet">
+    <!--Select-2-->
+    <link rel="stylesheet" href="~/lib/select2-bootstrap-5-theme/css/select2.min.css" />
+    <link rel="stylesheet" href="~/lib/select2-bootstrap-5-theme/css/select2-bootstrap-5-theme.min.css" />
+    <link href="~/css/site.css" rel="stylesheet" />    
+    <link href="~/css/info-box.css" rel="stylesheet" />
+    <link href="~/css/bg.css" rel="stylesheet" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @@media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="~/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" asp-controller="admin" asp-action="index">Dashboard</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="nav-link px-3" asp-controller="account" asp-action="logout">@User.Identity.Name</a>
+                }
+                else
+                {
+                    <a class="nav-link px-3" asp-controller="account" asp-action="login" asp-route-id="@ViewBag.UserId">Sign in</a>
+                }
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item" id="tilesmenu">
+                            <a class="nav-link" aria-current="page" asp-controller="tile" asp-action="index">
+                                <span data-feather="home"></span>
+                                Tiles
+                            </a>
+                        </li>                        
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Admin tools</span>
+                        <a class="link-secondary" href="#" aria-label="Admin tools">
+                            @*<img src="~/icons/x-circle.svg" alt="circle" width="24" height="24"/>*@
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </a>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item" id="usersmenu">
+                            <a class="nav-link" aria-current="page" asp-controller="user" asp-action="index">
+                                <span data-feather="home"></span>
+                                Users
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">
+                        @if (ViewBag.Breadcrumb != null)
+                        {
+                            @ViewBag.Breadcrumb
+                        }
+                        else
+                        {
+                            <span>Dashboard</span>                            
+                        }
+                    </h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                    </div>
+                </div>
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("VenderScripts", required: false)
+    @await RenderSectionAsync("CustomScripts", required: false)
+</body>
+
+</html>

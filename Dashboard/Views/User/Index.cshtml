@@ -1,0 +1,42 @@
+﻿@model Dashboard.Models.ViewModel
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Список пользовталей";
+}
+
+<div class="row mb-3">
+    <a class="btn btn-sm btn-outline-secondary" asp-controller="user" asp-action="create" role="button">Создать</a>
+</div>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <th scope="row">@user.Id</th>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Role?.Name</td>
+                <td>
+                    <a  asp-controller="user" asp-action="edit" asp-route-id="@user.Id">
+                        <i class="far fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section CustomScripts
+{
+    <script>
+        $('#usersmenu>a').addClass("active");
+    </script>
+}
