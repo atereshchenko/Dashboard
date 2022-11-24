@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Dashboard.Models;
+using Dashboard.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Dashboard.Controllers
 {
@@ -9,16 +12,23 @@ namespace Dashboard.Controllers
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> logger;       
-
-        public AdminController(ILogger<AdminController> logger)
+        private readonly ITileService tileService;
+        public AdminController(ILogger<AdminController> logger, ITileService tileService)
         {
-            this.logger = logger;            
+            this.logger = logger;
+            this.tileService = tileService;
         }
 
         [Authorize(Roles = "admin")]
         public ActionResult Index()
-        {            
-            return View();
+        {
+            var tiles = tileService.GetList().Where(x=>x.Favorite == true).ToList();
+
+            ViewModel viewModel = new ViewModel
+            {
+                Tiles = tiles
+            };
+            return View(viewModel);           
         }
 
         [Authorize(Roles = "admin")]

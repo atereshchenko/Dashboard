@@ -1,22 +1,25 @@
-﻿@using Dashboard.Models
-@model Dashboard.Models.DashboardModel
+﻿@model Dashboard.Models.ViewModel
 @{
     Layout = "_Admin";
 }
 <link href="~/css/site.css" rel="stylesheet" />
 <div class="row">
-    <div class="col-sm">
-        <div class="card">
-            <div class="card-header">
-                Featured
+    @if (Model.Tiles.Count() > 0)
+    {
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header">
+                    Featured
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var tile in Model.Tiles)
+                    {
+                        <li class="list-group-item"><a href="@tile.Link" id="btn-tooltip" class="link-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="@tile.Description">@tile.Name</a></li>
+                    }
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="/swagger/index.html" class="link-primary">Swagger documentation</a></li>
-                <li class="list-group-item"><a asp-controller="examples" asp-action="index" class="link-primary">Bootstrap Examples</a></li>
-                <li class="list-group-item"><a href="https://www.chartjs.org/" class="link-primary">Charts.js</a></li>                
-            </ul>
-        </div>        
-    </div>
+        </div>
+    }
     <div class="col-sm">
         <div class="card">
             <div class="card-header">
@@ -24,7 +27,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><a href="https://getbootstrap.com/docs/5.1/extend/icons/" class="link-primary">Bootstrap icons docs</a></li>
-                <li class="list-group-item"><a href="https://icons.getbootstrap.com/" class="link-primary">Bootstrap Icons</a></li>                
+                <li class="list-group-item"><a href="https://icons.getbootstrap.com/" class="link-primary">Bootstrap Icons</a></li>
                 <li class="list-group-item"><a href="https://feathericons.com/" class="link-primary">Feather icons</a></li>
             </ul>
         </div>
@@ -34,10 +37,16 @@
 
 @section VenderScripts
 {
-    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 }
 
 @section CustomScripts
 {
-    
+    <script type="text/javascript">
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 }

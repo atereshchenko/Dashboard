@@ -125,6 +125,13 @@ namespace Dashboard.Services
 					context.Entry(result).State = EntityState.Modified;
 				}
 
+				if (result.Favorite != tile.Favorite)
+				{
+					result.Favorite = tile.Favorite;
+					// Указать, что запись изменилась
+					context.Entry(result).State = EntityState.Modified;
+				}
+
 				// Сохранить изменения
 				context.SaveChanges();
 			}

@@ -40,6 +40,11 @@ namespace Dashboard.Entities
 		/// </summary>
 		[Column("turn_on")]
 		public bool TurnOn { get; set; }
+		/// <summary>
+		/// Избранное
+		/// </summary>
+		[Column("favorite")]
+		public bool Favorite { get; set; }
 
 		[Column("text_color_id")]
 		public int TextColorId { get; set; }	

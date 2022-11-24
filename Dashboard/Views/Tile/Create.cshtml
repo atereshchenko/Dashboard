@@ -58,7 +58,10 @@
         <input asp-for="@Model.Tile.TurnOn" type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
         <label asp-for="@Model.Tile.TurnOn" class="btn btn-sm btn-outline-secondary" for="btncheck1">Вкл/выкл</label>
     </div>
-
+    <div class="col-md-12">
+        <input asp-for="@Model.Tile.Favorite" type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+        <label asp-for="@Model.Tile.Favorite" class="btn btn-sm btn-outline-secondary" for="btncheck2">добавить в избранное</label>
+    </div>
     <div class="col-12">
         <button class="btn btn-sm btn-success" type="submit">Сохранить</button>
     </div>

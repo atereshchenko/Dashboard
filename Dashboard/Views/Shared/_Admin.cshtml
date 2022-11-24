@@ -77,7 +77,7 @@
                                 <span data-feather="home"></span>
                                 Tiles
                             </a>
-                        </li>                        
+                        </li>
                     </ul>
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Admin tools</span>
@@ -111,7 +111,7 @@
                         }
                         else
                         {
-                            <span>Dashboard</span>                            
+                            <span>Dashboard</span>
                         }
                     </h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
@@ -124,9 +124,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-    
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("VenderScripts", required: false)
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("CustomScripts", required: false)
 </body>
 
