@@ -61,8 +61,8 @@ namespace Dashboard
 
             List<Tile> tiles = new List<Tile>
             {
-                new Tile { Id = 1, Number = 1, Name = "Swagger documentation", Description = "Swagger documentation", Link = "http://localhost/swagger/index.html", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true },
-                new Tile { Id = 2, Number = 2, Name = "Bootstrap Examples", Description = "Bootstrap Examples", Link = "http://localhost/examples", LinkName = "Перейти", TurnOn = false, TextColorId = 1, BorderColorId = 2, Favorite = true},
+                new Tile { Id = 1, Number = 1, Name = "Swagger documentation", Description = "RESTful API documentation", Link = "http://localhost/swagger/index.html", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true },
+                new Tile { Id = 2, Number = 2, Name = "Bootstrap Examples", Description = "примеры шаблонов Bootstrap", Link = "http://localhost/examples", LinkName = "Перейти", TurnOn = false, TextColorId = 1, BorderColorId = 2, Favorite = true},
                 new Tile { Id = 3, Number = 3, Name = "Chart.js", Description = "JavaScript charting", Link = "https://www.chartjs.org/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true},
                 new Tile { Id = 4, Number = 4, Name = "Bootstrap icons docs", Description = "Bootstrap icons docs", Link = "https://getbootstrap.com/docs/5.1/extend/icons/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false},
                 new Tile { Id = 5, Number = 5, Name = "Bootstrap Icons", Description = "Bootstrap Icons", Link = "https://icons.getbootstrap.com/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false},

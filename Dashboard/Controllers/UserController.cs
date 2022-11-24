@@ -132,7 +132,7 @@ namespace Dashboard.Controllers
             }
         }
 
-        public string CalculateMD5Hash(string password)
+        private static string CalculateMD5Hash(string password)
         {
             // step 1, calculate MD5 hash from input
             MD5 md5 = System.Security.Cryptography.MD5.Create();

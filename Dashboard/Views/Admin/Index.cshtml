@@ -14,7 +14,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var tile in Model.Tiles)
                     {
-                        <li class="list-group-item"><a href="@tile.Link" id="btn-tooltip" class="link-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="@tile.Description">@tile.Name</a></li>
+                        <li class="list-group-item"><a href="@tile.Link" class="link-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="@tile.Description">@tile.Name</a></li>
                     }
                 </ul>
             </div>
@@ -43,7 +43,6 @@
 @section CustomScripts
 {
     <script type="text/javascript">
-
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
