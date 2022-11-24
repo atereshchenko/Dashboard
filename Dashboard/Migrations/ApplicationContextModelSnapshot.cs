@@ -159,7 +159,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 1,
                             BorderColorId = 2,
-                            Description = "Swagger documentation",
+                            Description = "RESTful API documentation",
                             Favorite = true,
                             Link = "http://localhost/swagger/index.html",
                             LinkName = "Перейти",
@@ -172,7 +172,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 2,
                             BorderColorId = 2,
-                            Description = "Bootstrap Examples",
+                            Description = "примеры шаблонов Bootstrap",
                             Favorite = true,
                             Link = "http://localhost/examples",
                             LinkName = "Перейти",
