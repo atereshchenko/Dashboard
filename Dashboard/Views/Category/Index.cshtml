@@ -1,0 +1,44 @@
+﻿@model Dashboard.Models.ViewModel
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Список категорий";
+}
+
+<div class="row mb-3">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
+        <a class="btn btn-sm btn-outline-secondary" asp-controller="category" asp-action="create" role="button">add</a>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="accordion" id="accordionCategories">
+        @foreach (var category in Model.Categories)
+        {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-@category.Id">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@category.Id" aria-expanded="false" aria-controls="collapse-@category.Id">
+                    <small>@category.Name</small>
+                </button>
+            </h2>
+            <div id="collapse-@category.Id" class="accordion-collapse collapse" aria-labelledby="heading-@category.Id" data-bs-parent="#accordionCategories">
+                <div class="accordion-body">
+                    <ul class="list-group">
+                        @foreach (var item in category.Tiles)
+                        {
+                        <li class="list-group-item">
+                            <a class="card-link text-decoration-none" asp-controller="tile" asp-action="edit" asp-route-id="@item.Id">@item.Name</a>
+                        </li>                                
+                         }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+@section CustomScripts
+{
+    <script>
+        $('#tilesmenu>a').addClass("active");
+    </script>
+}

@@ -19,6 +19,30 @@ namespace Dashboard.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Dashboard.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Разное"
+                        });
+                });
+
             modelBuilder.Entity("Dashboard.Entities.CssColor", b =>
                 {
                     b.Property<int>("Id")
@@ -114,6 +138,10 @@ namespace Dashboard.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("border_color_id");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer")
+                        .HasColumnName("category_id");
+
                     b.Property<string>("Description")
                         .HasColumnType("text")
                         .HasColumnName("description");
@@ -150,6 +178,8 @@ namespace Dashboard.Migrations
 
                     b.HasIndex("BorderColorId");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("TextColorId");
 
                     b.ToTable("tiles");
@@ -159,6 +189,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 1,
                             BorderColorId = 2,
+                            CategoryId = 1,
                             Description = "RESTful API documentation",
                             Favorite = true,
                             Link = "http://localhost/swagger/index.html",
@@ -172,6 +203,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 2,
                             BorderColorId = 2,
+                            CategoryId = 1,
                             Description = "примеры шаблонов Bootstrap",
                             Favorite = true,
                             Link = "http://localhost/examples",
@@ -185,6 +217,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 3,
                             BorderColorId = 2,
+                            CategoryId = 1,
                             Description = "JavaScript charting",
                             Favorite = true,
                             Link = "https://www.chartjs.org/",
@@ -198,6 +231,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 4,
                             BorderColorId = 2,
+                            CategoryId = 1,
                             Description = "Bootstrap icons docs",
                             Favorite = false,
                             Link = "https://getbootstrap.com/docs/5.1/extend/icons/",
@@ -211,6 +245,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 5,
                             BorderColorId = 2,
+                            CategoryId = 1,
                             Description = "Bootstrap Icons",
                             Favorite = false,
                             Link = "https://icons.getbootstrap.com/",
@@ -224,6 +259,7 @@ namespace Dashboard.Migrations
                         {
                             Id = 6,
                             BorderColorId = 2,
+                            CategoryId = 1,
                             Description = "Feather icons",
                             Favorite = false,
                             Link = "https://feathericons.com/",
@@ -289,11 +325,17 @@ namespace Dashboard.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Dashboard.Entities.Category", "Сategory")
+                        .WithMany("Tiles")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("Dashboard.Entities.CssColor", "TextColor")
                         .WithMany()
                         .HasForeignKey("TextColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Сategory");
 
                     b.Navigation("BorderColor");
 
@@ -307,6 +349,11 @@ namespace Dashboard.Migrations
                         .HasForeignKey("RoleId");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Dashboard.Entities.Category", b =>
+                {
+                    b.Navigation("Tiles");
                 });
 
             modelBuilder.Entity("Dashboard.Entities.Role", b =>

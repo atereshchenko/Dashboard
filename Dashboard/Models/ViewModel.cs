@@ -8,7 +8,9 @@ namespace Dashboard.Models
 		public List<User> Users { get; set; }
 		public User User { get; set; }
 		public List<Tile> Tiles { get; set; }
-		public Tile Tile { get; set; }		
+		public Tile Tile { get; set; }
+		public Category Category { get; set; }
+		public List<Category> Categories { get; set; }
 	}
 
 	public class DashboardModel

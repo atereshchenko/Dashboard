@@ -1,0 +1,49 @@
+﻿@using Dashboard.Models
+@model Dashboard.Models.ViewModel
+@{
+    Layout = "_Admin";
+}
+
+<form role="form" asp-action="create" asp-controller="category" class="row g-3 needs-validation" novalidate>
+    @Html.HiddenFor(m => m.Category.Id)
+    <div class="col-md-9">
+        <label asp-for="@Model.Category.Name" class="form-label">Наименование</label>
+        <input asp-for="@Model.Category.Name" type="text" class="form-control form-control-sm" required>
+        <div class="invalid-feedback">
+            Укажите наименование.
+        </div>
+    </div>    
+    <div class="col-12">
+        <button class="btn btn-sm btn-success" type="submit">Сохранить</button>
+    </div>
+</form>
+
+@section VenderScripts
+{
+    <script src="~/lib/select2-bootstrap-5-theme/js/select2.min.js"></script>
+}
+
+@section CustomScripts
+{
+    <script>
+        $('#tilesmenu>a').addClass("active");        
+
+        (function () {
+            'use strict'
+            // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Зацикливайтесь на них и предотвращайте отправку
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

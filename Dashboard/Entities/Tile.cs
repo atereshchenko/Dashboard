@@ -54,5 +54,14 @@ namespace Dashboard.Entities
 		public int BorderColorId { get; set; }
 		public CssColor BorderColor { get; set; }
 
+		/// <summary>
+		/// Идентфикатор категории
+		/// </summary>
+		[Column("category_id")]
+		public int? CategoryId { get; set; }
+		/// <summary>
+		/// Катогрия плитки
+		/// </summary>
+		public Category Сategory { get; set; }
 	}
 }

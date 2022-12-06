@@ -21,7 +21,9 @@ namespace Dashboard
         public DbSet<Role> Roles { get; set; }  
         
         public DbSet<CssColor> CssColors { get; set; }
-        
+
+        public DbSet<Category> Categories { get; set; }
+
         public ApplicationContext()
         {            
             Database.EnsureCreated();
@@ -43,7 +45,6 @@ namespace Dashboard
             };
             modelBuilder.Entity<Role>().HasData(roles);
 
-
             User adminUser = new User { Id = 1, Name = "Администратор", Email = adminEmail, Password = adminPassword, RoleId = roles[0].Id, IsActive = true };            
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });            
 
@@ -59,14 +60,20 @@ namespace Dashboard
             };
             modelBuilder.Entity<CssColor>().HasData(colors);
 
+            List<Category> categories = new List<Category>
+            {
+                new Category { Id = 1, Name= "Разное"},                
+            };
+            modelBuilder.Entity<Category>().HasData(categories);
+
             List<Tile> tiles = new List<Tile>
             {
-                new Tile { Id = 1, Number = 1, Name = "Swagger documentation", Description = "RESTful API documentation", Link = "http://localhost/swagger/index.html", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true },
-                new Tile { Id = 2, Number = 2, Name = "Bootstrap Examples", Description = "примеры шаблонов Bootstrap", Link = "http://localhost/examples", LinkName = "Перейти", TurnOn = false, TextColorId = 1, BorderColorId = 2, Favorite = true},
-                new Tile { Id = 3, Number = 3, Name = "Chart.js", Description = "JavaScript charting", Link = "https://www.chartjs.org/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true},
-                new Tile { Id = 4, Number = 4, Name = "Bootstrap icons docs", Description = "Bootstrap icons docs", Link = "https://getbootstrap.com/docs/5.1/extend/icons/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false},
-                new Tile { Id = 5, Number = 5, Name = "Bootstrap Icons", Description = "Bootstrap Icons", Link = "https://icons.getbootstrap.com/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false},
-                new Tile { Id = 6, Number = 6, Name = "Feather icons", Description = "Feather icons", Link = "https://feathericons.com/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false},
+                new Tile { Id = 1, Number = 1, Name = "Swagger documentation", Description = "RESTful API documentation", Link = "http://localhost/swagger/index.html", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true, CategoryId = 1},
+                new Tile { Id = 2, Number = 2, Name = "Bootstrap Examples", Description = "примеры шаблонов Bootstrap", Link = "http://localhost/examples", LinkName = "Перейти", TurnOn = false, TextColorId = 1, BorderColorId = 2, Favorite = true, CategoryId = 1},
+                new Tile { Id = 3, Number = 3, Name = "Chart.js", Description = "JavaScript charting", Link = "https://www.chartjs.org/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = true, CategoryId = 1},
+                new Tile { Id = 4, Number = 4, Name = "Bootstrap icons docs", Description = "Bootstrap icons docs", Link = "https://getbootstrap.com/docs/5.1/extend/icons/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false, CategoryId = 1},
+                new Tile { Id = 5, Number = 5, Name = "Bootstrap Icons", Description = "Bootstrap Icons", Link = "https://icons.getbootstrap.com/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false, CategoryId = 1},
+                new Tile { Id = 6, Number = 6, Name = "Feather icons", Description = "Feather icons", Link = "https://feathericons.com/", LinkName = "Перейти", TurnOn = true, TextColorId = 1, BorderColorId = 2, Favorite = false, CategoryId = 1},
             };
             modelBuilder.Entity<Tile>().HasData(tiles);            
 

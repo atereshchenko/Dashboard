@@ -29,7 +29,8 @@ namespace Dashboard
 			services.AddTransient<IUserService, UserService>(provider => new UserService(dbContext));
 			services.AddTransient<IBorderColorService, BorderColorService>(provider => new BorderColorService(dbContext));
 			services.AddTransient<ITextColorService, TextColorService>(provider => new TextColorService(dbContext));
-			services.AddTransient<IRoleService, RoleService>(provider => new RoleService(dbContext));			
+			services.AddTransient<IRoleService, RoleService>(provider => new RoleService(dbContext));
+			services.AddTransient<ICategoryService, CategoryService>(provider => new CategoryService(dbContext));			
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>

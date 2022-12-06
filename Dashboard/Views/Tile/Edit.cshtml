@@ -4,7 +4,7 @@
     Layout = "_Admin";
 }
 <form role="form" asp-action="edit" asp-controller="tile" asp-route-id="@Model.Tile.Id" class="row g-3 needs-validation" novalidate>
-    @Html.HiddenFor(m => m.Tile.Id)
+    @Html.HiddenFor(m => m.Tile.Id)    
     <div class="col-md-9">
         <label asp-for="@Model.Tile.Name" class="form-label">Наименование</label>
         <input asp-for="@Model.Tile.Name" type="text" value="@Model.Tile.Name" class="form-control form-control-sm" required>
@@ -41,29 +41,60 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <label asp-for="@Model.Tile.CategoryId" class="form-label">Категория</label>
+        <div class="input-group input-group-sm">
+            <select class="form-select form-select-sm" asp-for="@Model.Tile.CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Value", "Text"))"></select>
+            <input type="hidden" asp-for="@Model.Tile.CategoryId" />
+
+            <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#CreateCategoryModal">+</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="CreateCategoryModal" tabindex="-1" aria-labelledby="CreateCategoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="CreateCategoryModalLabel">Create category</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label asp-for="@Model.Category.Id" class="form-label">Наименование</label>
+                            <input asp-for="@Model.Category.Name" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="category" class="btn btn-sm btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
         <label asp-for="@Model.Tile.BorderColorId" class="form-label">Border Color</label>
-        <select class="form-control form-control-sm" asp-for="@Model.Tile.BorderColorId" asp-items="@(new SelectList(ViewBag.BorderColors, "Value", "Text"))"></select>
+        <select class="form-select form-select-sm" asp-for="@Model.Tile.BorderColorId" asp-items="@(new SelectList(ViewBag.BorderColors, "Value", "Text"))"></select>
         <input type="hidden" asp-for="@Model.Tile.BorderColorId" />
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <label asp-for="@Model.Tile.TextColorId" class="form-label">Text Color</label>
-        <select class="form-control form-control-sm" asp-for="@Model.Tile.TextColorId" asp-items="@(new SelectList(ViewBag.TextColor, "Value", "Text"))"></select>
+        <select class="form-select form-select-sm" asp-for="@Model.Tile.TextColorId" asp-items="@(new SelectList(ViewBag.TextColor, "Value", "Text"))"></select>
         <input type="hidden" asp-for="@Model.Tile.TextColorId" />
     </div>
 
     <div class="col-md-12">
-        <input asp-for="@Model.Tile.TurnOn" type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-        <label asp-for="@Model.Tile.TurnOn" class="btn btn-sm btn-outline-secondary" for="btncheck1">показывать на стартовой странице</label>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input asp-for="@Model.Tile.TurnOn" type="checkbox" class="btn-check" id="btncheckTurnOn" autocomplete="off">
+            <label asp-for="@Model.Tile.TurnOn" class="btn btn-sm btn-outline-primary" for="btncheckTurnOn">показывать на стартовой странице</label>
+
+            <input asp-for="@Model.Tile.Favorite" type="checkbox" class="btn-check" id="btncheckFavorite" autocomplete="off">
+            <label asp-for="@Model.Tile.Favorite" class="btn btn-sm btn-outline-primary" for="btncheckFavorite">добавить в избранное</label>
+        </div>
     </div>
 
-    <div class="col-md-12">
-        <input asp-for="@Model.Tile.Favorite" type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-        <label asp-for="@Model.Tile.Favorite" class="btn btn-sm btn-outline-secondary" for="btncheck2">добавить в избранное</label>
-    </div>
     <div class="col-12">
-        <button class="btn btn-sm btn-success" type="submit">Сохранить</button>
+        <button class="btn btn-sm btn-success" type="submit" name="tile">Сохранить</button>
     </div>
 </form>
 
@@ -77,12 +108,28 @@
     <script>
         $('#tilesmenu>a').addClass("active");
 
+        $("#Tile_CategoryId").select2({
+            theme: "bootstrap-5",
+            containerCssClass: "select2--small",
+            selectionCssClass: "select2--small",
+            dropdownCssClass: "select2--small",
+            minimumResultsForSearch: -1,
+            //placeholder: "select a category",
+            placeholder: {
+                id: '-1',
+                text: 'select a category'
+            },
+            allowClear: true
+        });
+
         $("#Tile_BorderColorId").select2({
             theme: "bootstrap-5",
             containerCssClass: "select2--small",
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
-            minimumResultsForSearch: -1,            
+            minimumResultsForSearch: -1,
+            placeholder: "select a border color",
+            allowClear: true
         });
 
         $("#Tile_TextColorId").select2({
@@ -91,6 +138,8 @@
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
             minimumResultsForSearch: -1,
+            placeholder: "select a text color",
+            allowClear: true
         });
 
         (function () {

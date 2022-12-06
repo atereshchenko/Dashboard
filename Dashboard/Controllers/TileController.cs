@@ -17,19 +17,21 @@ namespace Dashboard.Controllers
 		private readonly IUserService userService;
 		private readonly IBorderColorService borderColorService;
 		private readonly ITextColorService textColorService;
+		private readonly ICategoryService categoryService;
 
-		public TileController(ILogger<TileController> logger, ITileService tileService, IUserService userService, IBorderColorService borderColorService, ITextColorService textColorService)
+		public TileController(ILogger<TileController> logger, ITileService tileService, IUserService userService, IBorderColorService borderColorService, ITextColorService textColorService, ICategoryService categoryService)
 		{
 			this.logger = logger;
 			this.tileService = tileService;
 			this.userService = userService;
 			this.borderColorService = borderColorService;
 			this.textColorService = textColorService;
+			this.categoryService = categoryService;
 		}
 
 		[HttpGet]
 		[Authorize(Roles = "admin")]
-		public async Task<ActionResult> Index()
+		public ActionResult Index()
 		{
 			string email = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;			
 			User user = userService.GetByEmail(email);
@@ -56,12 +58,13 @@ namespace Dashboard.Controllers
 			User user = userService.GetByEmail(email);
 			ViewBag.UserId = user.Id;
 			ViewBag.Title = "Редактирование плитки";
-			ViewBag.Breadcrumb = "Tile";
+			ViewBag.Breadcrumb = "Tile";			
 
 			var tile = tileService.GetById(id);
 
 			ViewBag.BorderColors = borderColorService.GetList().Select(x => new DropDownList { Value = x.Id, Text = x.Value });
 			ViewBag.TextColor = textColorService.GetList().Select(x => new DropDownList { Value = x.Id, Text = x.Value });
+			ViewBag.Categories = categoryService.GetList().Select(x => new DropDownList { Value = x.Id, Text = x.Name });
 
 			ViewModel viewModel = new ViewModel
 			{
@@ -73,23 +76,36 @@ namespace Dashboard.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "admin")]
-		public async Task<ActionResult> Edit(ViewModel model)
+		public ActionResult Edit(ViewModel model)
 		{
-			ViewBag.Breadcrumb = "Breadcrumb";			
-			tileService.Update(model.Tile);
+			ViewBag.Breadcrumb = "Breadcrumb";
 
-			return RedirectToAction("index", "tile");			
+			if (string.IsNullOrEmpty(model.Category.Name))
+			{
+				//пустая категория
+				var tmp = model.Category.Name;
+				tileService.Update(model.Tile);
+				return RedirectToAction("index", "tile");
+			}
+			else
+			{
+				//непустая категория
+				categoryService.Create(model.Category);
+				return RedirectToAction("edit", "tile", model.Tile.Id);
+			}						
 		}
 
 		[HttpGet]
 		[Authorize(Roles = "admin")]
-		public async Task<ActionResult> Create()
+		public ActionResult Create()
 		{
 			string email = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
 			User user = userService.GetByEmail(email);
 			ViewBag.UserId = user.Id;
 			ViewBag.Title = "Создание плитки";
 			ViewBag.Breadcrumb = "Tile";
+
+			ViewBag.Categories = categoryService.GetList().Select(x => new DropDownList { Value = x.Id, Text = x.Name });
 
 			var lastTile = tileService.GetList().LastOrDefault().Number;
 			Tile newTile = new Tile
@@ -110,7 +126,7 @@ namespace Dashboard.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "admin")]
-		public async Task<ActionResult> Create(Entities.Tile tile)
+		public ActionResult Create(Entities.Tile tile)
 		{			
 			tileService.Create(tile);			
 			return RedirectToAction("index", "tile");

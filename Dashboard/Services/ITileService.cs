@@ -61,7 +61,7 @@ namespace Dashboard.Services
 
         public Tile GetById(int? id)
         {
-            return context.Tiles.Include(u => u.BorderColor).Include(y => y.TextColor).FirstOrDefault(t => t.Id == id);
+			return context.Tiles.Include(u => u.BorderColor).Include(y => y.TextColor).Include(c => c.Сategory).FirstOrDefault(t => t.Id == id);
         }       
 
         public Tile Update(Tile tile)
@@ -128,6 +128,13 @@ namespace Dashboard.Services
 				if (result.Favorite != tile.Favorite)
 				{
 					result.Favorite = tile.Favorite;
+					// Указать, что запись изменилась
+					context.Entry(result).State = EntityState.Modified;
+				}
+
+				if (result.CategoryId != tile.CategoryId)
+				{
+					result.CategoryId = tile.CategoryId;
 					// Указать, что запись изменилась
 					context.Entry(result).State = EntityState.Modified;
 				}
