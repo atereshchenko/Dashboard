@@ -2,6 +2,10 @@
 
 namespace Dashboard.Entities
 {
+	/// <summary>
+	/// Пользователи
+	/// Отношение (классы vs объекты) - "Ассоциация"
+	/// </summary>
 	[Table("users")]
 	public class User
 	{

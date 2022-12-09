@@ -7,10 +7,11 @@ using System.Text;
 
 namespace Dashboard.Services
 {
-	/// <summary>
-	/// Интерфейс для работы с пользователями
-	/// </summary>
-	public interface IUserService
+    /// <summary>
+    /// Интерфейс для работы с пользователями
+    /// Отношение (классы vs объекты) - "Реализация"
+    /// </summary>
+    public interface IUserService
 	{
         /// <summary>
         /// Авторизация пользователя

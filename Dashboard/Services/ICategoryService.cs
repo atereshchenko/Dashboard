@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Services
 {
+	/// <summary>
+	/// Интерфейс для работы с категорями
+	/// Отношение (классы vs объекты) - "Реализация"
+	/// </summary>
 	public interface ICategoryService
 	{
 		public List<Category> GetList();

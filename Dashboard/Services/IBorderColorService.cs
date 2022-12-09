@@ -6,11 +6,13 @@ namespace Dashboard.Services
 {
 	/// <summary>
 	/// Интерфейс для работы с цветами рамки
+	/// Отношение (классы vs объекты) - "Реализация"
 	/// </summary>
 	public interface IBorderColorService
 	{
 		/// <summary>
 		/// Получить список классов css-цветов
+		/// Отношение (классы vs объекты) - "Реализация"
 		/// </summary>
 		/// <returns>список классов css-цветов</returns>
 		List<CssColor> GetList();

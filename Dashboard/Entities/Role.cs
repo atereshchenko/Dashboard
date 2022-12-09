@@ -3,6 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dashboard.Entities
 {
+    /// <summary>
+    /// Роли
+    /// Отношение (классы vs объекты) - "Композиция"
+    /// </summary>
 	[Table("roles")]
     public class Role
 	{

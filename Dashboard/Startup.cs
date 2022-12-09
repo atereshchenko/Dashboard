@@ -25,6 +25,8 @@ namespace Dashboard
 			services.AddControllersWithViews();
 
 			var dbContext = new ApplicationContext();
+			
+			// Жизненый цикл зависимости
 			services.AddTransient<ITileService, TileService>(provider => new TileService(dbContext));
 			services.AddTransient<IUserService, UserService>(provider => new UserService(dbContext));
 			services.AddTransient<IBorderColorService, BorderColorService>(provider => new BorderColorService(dbContext));

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Entities
 {
+    /// <summary>
+    /// Категории плиток
+    /// Отношение (классы vs объекты) - "Композиция"
+    /// </summary>
     [Table("categories")]
     public class Category
     {

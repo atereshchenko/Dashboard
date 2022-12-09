@@ -7,6 +7,7 @@ namespace Dashboard.Services
 {
 	/// <summary>
 	/// Интерфейс для работы с плитками
+	/// Отношение (классы vs объекты) - "Реализация"
 	/// </summary>
 	public interface ITileService
     {

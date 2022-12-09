@@ -2,6 +2,10 @@
 
 namespace Dashboard.Entities
 {
+	/// <summary>
+	/// Плитка
+	/// Отношение (классы vs объекты) - "Ассоциация"
+	/// </summary>
 	[Table("tiles")]
 	public class Tile
     {

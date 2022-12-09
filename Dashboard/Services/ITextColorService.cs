@@ -6,6 +6,7 @@ namespace Dashboard.Services
 {
 	/// <summary>
 	/// Интерфейс для работы с цветами текста
+	/// Отношение (классы vs объекты) - "Реализация"
 	/// </summary>
 	public interface ITextColorService
 	{

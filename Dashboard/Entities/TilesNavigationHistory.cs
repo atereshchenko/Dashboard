@@ -2,6 +2,10 @@
 
 namespace Dashboard.Entities
 {
+	/// <summary>
+	/// История. Не используется
+	/// Отношение (классы vs объекты) - "Ассоциация"
+	/// </summary>
 	public class TilesNavigationHistory
 	{
 		/// <summary>
