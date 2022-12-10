@@ -39,7 +39,7 @@ namespace Dashboard.Controllers.API
 		/// <response code="200">список плиток сгрупированых по категориям в формате Json-строки</response>
 		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<IActionResult> Get()
+		public IActionResult Get()
 		{
 			var categories = categoryService.GetList();
 

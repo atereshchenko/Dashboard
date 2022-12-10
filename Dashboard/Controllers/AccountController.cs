@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
@@ -33,7 +32,7 @@ namespace Dashboard.Controllers
         public IActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
-            {                           
+            {
                 User user = userService.Login(model.Email, model.Password);
 
                 if (user == null)
@@ -44,7 +43,7 @@ namespace Dashboard.Controllers
                 {
                     if (user.IsActive)
                     {
-                        Authenticate(user);
+                        GetIdentity(user);
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         {
                             return Redirect(model.ReturnUrl);
@@ -58,8 +57,8 @@ namespace Dashboard.Controllers
                     {
                         ModelState.AddModelError("", "Доступ к сайту ограничен");
                     }
-                }                
-			}
+                }
+            }
             return View(model);
         }
 
@@ -71,7 +70,7 @@ namespace Dashboard.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public IActionResult Register(RegisterModel model)
         {
             //if (ModelState.IsValid)
             //{
@@ -101,22 +100,31 @@ namespace Dashboard.Controllers
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("index", "home");
-        }
-
-        private void Authenticate(User user)
-        {
-            // создаем claim
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)                
-            };
-
-            // создаем объект ClaimsIdentity
-            ClaimsIdentity id = new ClaimsIdentity(claims, "DashboardCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-            // установка аутентификационных кук
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }        
+
+        /// <summary>
+        /// Получить удостоверение личности
+        /// </summary>
+        /// <param name="user">Пользователь</param>
+        /// <returns>Идентификатор</returns>
+        private ClaimsIdentity GetIdentity(User user)
+        {            
+            if (user != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)                    
+                };
+
+                // создаем объект ClaimsIdentity
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Dashboard", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                return claimsIdentity;
+            }
+
+            // если пользователя не найдено
+            return null;
+        }
     }
 }

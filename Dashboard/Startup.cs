@@ -1,10 +1,13 @@
+using Dashboard.Models;
 using Dashboard.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using System;
@@ -48,7 +51,7 @@ namespace Dashboard
 			services.AddTransient<IBorderColorService, BorderColorService>(provider => new BorderColorService(dbContext));
 			services.AddTransient<ITextColorService, TextColorService>(provider => new TextColorService(dbContext));
 			services.AddTransient<IRoleService, RoleService>(provider => new RoleService(dbContext));
-			services.AddTransient<ICategoryService, CategoryService>(provider => new CategoryService(dbContext));			
+			services.AddTransient<ICategoryService, CategoryService>(provider => new CategoryService(dbContext));
 
 			// Авторизация на основе Cookie
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -56,7 +59,7 @@ namespace Dashboard
 				{
 					options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/account/login");
 					options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/account/login");
-				});			
+				});
 
 			services.AddSwaggerGen(options => 
 			{
