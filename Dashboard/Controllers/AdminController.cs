@@ -80,7 +80,7 @@ namespace Dashboard.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id) 
         {
             return View();
         }

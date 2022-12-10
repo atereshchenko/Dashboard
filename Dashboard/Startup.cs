@@ -7,19 +7,35 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
+using System;
+using System.IO;
+using System.Reflection;
+
 namespace Dashboard
 {
 	public class Startup
 	{
+		/// <summary>
+		/// Строка подключения к БД
+		/// </summary>
 		public static string Connecton = "Host=localhost;Port=5432;Database=dashboard;Username=postgres;Password=A1aaaaaa";
-
+		/// <summary>
+		/// Oбъект интерфейса IConfiguration
+		/// </summary>
+		public IConfiguration Configuration { get; }
+		/// <summary>
+		/// Конструктор класса
+		/// </summary>
+		/// <param name="configuration">Oбъект интерфейса IConfiguration</param>
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
-		}
+		}		
 
-		public IConfiguration Configuration { get; }
-
+		/// <summary>
+		/// Опциональный метод, который используется для настройки сервисов для приложения
+		/// </summary>
+		/// <param name="services"></param>
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
@@ -34,17 +50,40 @@ namespace Dashboard
 			services.AddTransient<IRoleService, RoleService>(provider => new RoleService(dbContext));
 			services.AddTransient<ICategoryService, CategoryService>(provider => new CategoryService(dbContext));			
 
+			// Авторизация на основе Cookie
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
 				{
 					options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/account/login");
 					options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/account/login");
+				});			
+
+			services.AddSwaggerGen(options => 
+			{
+				options.SwaggerDoc("v1", new OpenApiInfo
+				{
+					Version = "v1",
+					Title = "Dashboard API",
+					Description = "WEB-API ASP.NET Core приложение для управления элементами плиток",
+					//TermsOfService = new Uri("https://example.com/terms"),
+					Contact = new OpenApiContact
+					{
+						Name = "Tereshchenko Alexey",						
+						Email = "atereshhenko@gmail.com",
+						Url = new Uri("https://github.com/atereshchenko?tab=repositories")
+					},
+					License = new OpenApiLicense
+					{
+						Name = "License",
+						Url = new Uri("https://example.com/license")
+					}
 				});
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dashboard", Version = "v1" });
+				//using System.Reflection;
+				var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 			});
+
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,19 +99,17 @@ namespace Dashboard
 			}
 
 			app.UseSwagger();
-			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dashboard v1"));
-
-			//app.UseForwardedHeaders(new ForwardedHeadersOptions
-			//{
-			//	ForwardedHeaders = ForwardedHeaders.XForwardedFor |	ForwardedHeaders.XForwardedProto
-			//});			
+			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dashboard API"));		
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();
 
+			// аутентификация - идентифицируем пользователя, узнаем, кто он
 			app.UseAuthentication();
+
+			// авторизация - какие права в системе имеет пользователь, позволяет разграничить доступ к ресурсам приложения.
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

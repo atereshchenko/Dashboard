@@ -13,8 +13,22 @@ namespace Dashboard.Services
 	/// </summary>
 	public interface ICategoryService
 	{
+		/// <summary>
+		/// Получить список плиток в сгруппированных по категориям
+		/// </summary>
+		/// <returns>список плиток в сгруппированных по категориям</returns>
 		public List<Category> GetList();
+		/// <summary>
+		/// Создание категории
+		/// </summary>
+		/// <param name="category">Объект Категории</param>
+		/// <returns>Идентификатор созданной записи</returns>
 		public int Create(Category category);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		Category GetById(int? id);
 		Category Update(Category category);
 	}

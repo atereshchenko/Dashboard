@@ -28,7 +28,7 @@ namespace Dashboard.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             ViewBag.Breadcrumb = "Users";
             var users = userService.GetList();
@@ -42,7 +42,7 @@ namespace Dashboard.Controllers
         
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
             ViewBag.Roles = roleService.GetList().Select(x => new DropDownList { Value = x.Id, Text = x.Name });
             User user = new User();
@@ -58,7 +58,7 @@ namespace Dashboard.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ViewModel model)
+        public ActionResult Create(ViewModel model)
         {
 			try
 			{
@@ -80,7 +80,7 @@ namespace Dashboard.Controllers
         
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> Edit(int id)
+        public ActionResult Edit(int id)
         {
 			ViewBag.Breadcrumb = "User";            
             var user = userService.GetById(id);
@@ -95,7 +95,7 @@ namespace Dashboard.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ViewModel model)
+        public ActionResult Edit(ViewModel model)
         {
 			try
 			{

@@ -30,7 +30,7 @@ namespace Dashboard.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public IActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {                           
@@ -44,7 +44,7 @@ namespace Dashboard.Controllers
                 {
                     if (user.IsActive)
                     {
-                        await Authenticate(user);
+                        Authenticate(user);
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         {
                             return Redirect(model.ReturnUrl);
@@ -97,13 +97,13 @@ namespace Dashboard.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("index", "home");
         }
 
-        private async Task Authenticate(User user)
+        private void Authenticate(User user)
         {
             // создаем claim
             var claims = new List<Claim>
@@ -116,7 +116,7 @@ namespace Dashboard.Controllers
             ClaimsIdentity id = new ClaimsIdentity(claims, "DashboardCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
             // установка аутентификационных кук
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }        
     }
 }
